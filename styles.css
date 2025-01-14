@@ -122,3 +122,44 @@ button:hover {
         padding: 10px 15px;
     }
 }
+
+
+/* Stile per il menu a tendina */
+select {
+    width: 90%; /* Larghezza in linea con gli input */
+    padding: 8px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    color: #333;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    appearance: none; /* Nasconde la freccia predefinita */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3E%3Cpath fill='%23999' d='M2 0L0 2h4z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 10px;
+    cursor: pointer;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Effetto hover */
+select:hover {
+    border-color: #007bff;
+    box-shadow: 0 2px 8px rgba(0, 123, 255, 0.25);
+}
+
+/* Effetto focus */
+select:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 2px 8px rgba(0, 123, 255, 0.5);
+}
+
+/* Stile per le opzioni */
+option {
+    padding: 8px;
+    font-size: 0.9rem;
+    background-color: #fff;
+    color: #333;
+}
