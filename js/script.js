@@ -1,6 +1,6 @@
 // File JSON URLs
-const JSON_URL = "data.json"; // Per i codici e descrizioni
-const SUPPLIERS_URL = "suppliers.json"; // Per i fornitori
+const JSON_URL = "../data.json"; // Per i codici e descrizioni
+const SUPPLIERS_URL = "../suppliers.json"; // Per i fornitori
 
 // Funzione per caricare dati da un file JSON
 const fetchData = async (url) => {
