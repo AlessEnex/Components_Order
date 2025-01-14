@@ -2,8 +2,8 @@ import { createRow } from "./table.js";
 import { exportToCSV } from "./csv.js";
 import { openOutlookWithEmail } from "./email.js";
 
-const JSON_URL = "data.json";
-const SUPPLIERS_URL = "suppliers.json";
+const JSON_URL = "../data.json";
+const SUPPLIERS_URL = "../suppliers.json";
 
 const fetchData = async (url) => {
     const response = await fetch(url);
