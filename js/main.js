@@ -1,5 +1,5 @@
 import { createRow } from "./table.js";
-import { exportToCSV } from "./csv.js";
+import { exportToCustomCSV } from "./csv.js";
 import { openOutlookWithEmail } from "./email.js";
 
 const JSON_URL = "data.json";
@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         createRow(data, suppliers);
 
         // Eventi per i pulsanti
-        document.getElementById("generaCSV").addEventListener("click", exportToCSV);
+        document.getElementById("generaCSV").addEventListener("click", exportToCustomCSV);
         document.getElementById("generaEmail").addEventListener("click", openOutlookWithEmail);
     } catch (error) {
         console.error(error);
