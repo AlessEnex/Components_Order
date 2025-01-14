@@ -1,5 +1,5 @@
 import { createRow } from "./table.js";
-import { exportToCustomCSV } from "./csv.js";
+import { exportToCustomCSV as exportToCSV } from "./csv.js";
 import { openOutlookWithEmail } from "./email.js";
 
 const JSON_URL = "data.json";
