@@ -1,4 +1,4 @@
-export const exportToCustomCSV = () => {
+export const exportToCSV = () => {
     const rows = Array.from(document.querySelectorAll("#table-body tr"));
     const csvData = [];
 
