@@ -163,3 +163,27 @@ option {
     background-color: #fff;
     color: #333;
 }
+
+
+
+#commessa-info {
+    display: flex;
+    flex-direction: column; /* Disposizione verticale */
+    gap: 10px; /* Spaziatura tra gli elementi */
+    margin-bottom: 20px; /* Distanza dalla tabella sottostante */
+}
+
+#commessa-info label {
+    font-size: 14px; /* Dimensione del testo dell'etichetta */
+}
+
+.input-corto {
+    width: 10%; /* Limita la larghezza al 10% */
+    min-width: 120px; /* Imposta una larghezza minima */
+    padding: 5px; /* Spaziatura interna */
+    font-size: 14px; /* Dimensione del testo */
+    border: 1px solid #ccc; /* Bordo sottile */
+    border-radius: 4px; /* Angoli arrotondati */
+}
+
+
