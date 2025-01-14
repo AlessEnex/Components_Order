@@ -1,71 +1,76 @@
-// Load descriptions from the JSON file
-fetch('descriptions.json')
-    .then(response => response.json())
-    .then(descriptions => {
-        const tableBody = document.getElementById('compressors-table-body');
+// Load JSON data
+const fetchData = async () => {
+    const response = await fetch("data.json");
+    const data = await response.json();
+    return data;
+};
 
-        // Generate 10 rows dynamically
-        for (let i = 0; i < 10; i++) {
-            const row = document.createElement('tr');
+// Populate table
+const populateTable = (data) => {
+    const tableBody = document.getElementById("table-body");
+    for (let i = 0; i < 10; i++) {
+        const row = document.createElement("tr");
 
-            // Quantity cell
-            const quantityCell = document.createElement('td');
-            const quantityInput = document.createElement('input');
-            quantityInput.type = 'number';
-            quantityInput.min = '0';
-            quantityInput.value = '0';
-            quantityCell.appendChild(quantityInput);
-            row.appendChild(quantityCell);
+        // Quantità cell
+        const qtyCell = document.createElement("td");
+        const qtyInput = document.createElement("input");
+        qtyInput.type = "number";
+        qtyInput.classList.add("quantita");
+        qtyCell.appendChild(qtyInput);
+        row.appendChild(qtyCell);
 
-            // Code cell
-            const codeCell = document.createElement('td');
-            const codeInput = document.createElement('input');
-            codeInput.type = 'text';
-            codeInput.placeholder = 'Enter code';
-            codeCell.appendChild(codeInput);
-            row.appendChild(codeCell);
+        // Codice cell
+        const codeCell = document.createElement("td");
+        const codeInput = document.createElement("input");
+        codeInput.type = "text";
+        codeInput.classList.add("codice");
+        codeInput.addEventListener("input", () => updateDescription(row, data));
+        codeCell.appendChild(codeInput);
+        row.appendChild(codeCell);
 
-            // Description cell
-            const descriptionCell = document.createElement('td');
-            descriptionCell.className = 'description-cell';
-            descriptionCell.textContent = '';
-            row.appendChild(descriptionCell);
+        // Descrizione cell
+        const descCell = document.createElement("td");
+        const descSpan = document.createElement("span");
+        descSpan.classList.add("descrizione");
+        descCell.appendChild(descSpan);
+        row.appendChild(descCell);
 
-            // Add event listener to update description on code change
-            codeInput.addEventListener('input', () => {
-                const code = codeInput.value;
-                descriptionCell.textContent = descriptions[code] || 'Invalid code';
-            });
+        tableBody.appendChild(row);
+    }
+};
 
-            tableBody.appendChild(row);
+// Update description
+const updateDescription = (row, data) => {
+    const codeInput = row.querySelector(".codice").value.trim();
+    const descSpan = row.querySelector(".descrizione");
+    descSpan.textContent = data[codeInput] || "Codice non valido";
+};
+
+// Export to CSV
+const exportToCSV = () => {
+    const rows = Array.from(document.querySelectorAll("#table-body tr"));
+    const csvData = [["Quantità", "Codice", "Descrizione"]];
+    rows.forEach((row) => {
+        const qty = row.querySelector(".quantita").value;
+        const code = row.querySelector(".codice").value.trim();
+        const desc = row.querySelector(".descrizione").textContent;
+
+        if (qty > 0) {
+            csvData.push([qty, code, desc]);
         }
+    });
 
-        // Export to CSV functionality
-        document.getElementById('export-btn').addEventListener('click', () => {
-            const rows = Array.from(tableBody.querySelectorAll('tr'));
-            const csvData = [
-                ['Quantity', 'Code', 'Description'] // Header row
-            ];
+    const csvContent = csvData.map((e) => e.join(",")).join("\n");
+    const blob = new Blob([csvContent], { type: "text/csv" });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "compressori.csv";
+    a.click();
+};
 
-            rows.forEach(row => {
-                const quantity = row.cells[0].querySelector('input').value;
-                const code = row.cells[1].querySelector('input').value;
-                const description = row.cells[2].textContent;
+document.addEventListener("DOMContentLoaded", async () => {
+    const data = await fetchData();
+    populateTable(data);
 
-                if (quantity > 0) {
-                    csvData.push([quantity, code, description]);
-                }
-            });
-
-            // Convert to CSV format
-            const csvContent = csvData.map(e => e.join(",")).join("\n");
-
-            // Download the CSV file
-            const blob = new Blob([csvContent], { type: 'text/csv' });
-            const link = document.createElement('a');
-            link.href = URL.createObjectURL(blob);
-            link.download = 'results.csv';
-            link.click();
-        });
-    })
-    .catch(error => console.error('Error loading descriptions:', error));
+    document.getElementById("generaCSV").addEventListener("click", exportToCSV);
+});
