@@ -1,9 +1,8 @@
-export const openOutlookWithEmail = () => {
+export const openOutlookWithEmail = (subject) => {
     const rows = Array.from(document.querySelectorAll("#table-body tr"));
     let emailBody = "Dati compressori:\n\n";
     emailBody += "Fornitore\tQuantità\tCodice\tDescrizione\n";
 
-    const csvData = [["Fornitore", "Quantità", "Codice", "Descrizione"]];
     rows.forEach((row) => {
         const supplier = row.querySelector("select").value;
         const qty = row.querySelector("input[type='number']").value;
@@ -11,18 +10,16 @@ export const openOutlookWithEmail = () => {
         const desc = row.querySelector("span").textContent;
 
         if (qty > 0) {
-            csvData.push([supplier, qty, code, desc]);
             emailBody += `${supplier}\t${qty}\t${code}\t${desc}\n`;
         }
     });
 
-    // Genera e scarica il CSV
-    const csvContent = csvData.map((e) => e.join(",")).join("\n");
-    const blob = new Blob([csvContent], { type: "text/csv" });
-    const a = document.createElement("a");
-    a.href = URL.createObjectURL(blob);
-    a.download = "compressori.csv";
-    a.click();
+    // Aggiungi l'oggetto alla mail
+    const mailtoLink = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
+    window.location.href = mailtoLink;
+    };
+
+
 
     // Apri il client email
     const mailtoLink = `mailto:?subject=Dati Compressori&body=${encodeURIComponent(emailBody)}`;
