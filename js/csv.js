@@ -25,4 +25,7 @@ export const exportToCSV = () => {
     a.href = URL.createObjectURL(blob);
     a.download = "custom_compressori.csv";
     a.click();
+
+    console.log("Funzione exportToCSV chiamata!");
+    
 };
