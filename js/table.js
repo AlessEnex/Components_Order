@@ -1,9 +1,11 @@
 export const createRow = (data, suppliers) => {
+    console.log("Creazione di una nuova riga...");
     const tableBody = document.getElementById("table-body");
+    console.log("Tabella trovata:", tableBody);
 
     const row = document.createElement("tr");
-
-    // Fornitore
+    // Aggiunta di log per ciascuna cella
+    console.log("Aggiunta cella fornitore...");
     const supplierCell = document.createElement("td");
     const supplierSelect = document.createElement("select");
     suppliers.forEach((supplier) => {
@@ -15,7 +17,7 @@ export const createRow = (data, suppliers) => {
     supplierCell.appendChild(supplierSelect);
     row.appendChild(supplierCell);
 
-    // Quantità
+    console.log("Aggiunta cella quantità...");
     const qtyCell = document.createElement("td");
     const qtyInput = document.createElement("input");
     qtyInput.type = "number";
@@ -24,7 +26,7 @@ export const createRow = (data, suppliers) => {
     qtyCell.appendChild(qtyInput);
     row.appendChild(qtyCell);
 
-    // Codice
+    console.log("Aggiunta cella codice...");
     const codeCell = document.createElement("td");
     const codeInput = document.createElement("input");
     codeInput.type = "text";
@@ -33,7 +35,7 @@ export const createRow = (data, suppliers) => {
     codeCell.appendChild(codeInput);
     row.appendChild(codeCell);
 
-    // Descrizione
+    console.log("Aggiunta cella descrizione...");
     const descCell = document.createElement("td");
     const descSpan = document.createElement("span");
     descSpan.textContent = "Inserisci un codice";
@@ -41,7 +43,9 @@ export const createRow = (data, suppliers) => {
     row.appendChild(descCell);
 
     tableBody.appendChild(row);
+    console.log("Riga aggiunta:", row);
 };
+
 
 export const updateDescription = (row, data) => {
     const codeInput = row.querySelector("input[type='text']").value.trim();
