@@ -14,14 +14,9 @@ export const openOutlookWithEmail = (subject) => {
         }
     });
 
-    // Aggiungi l'oggetto alla mail
+    // Costruisci il link mailto
     const mailtoLink = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
-    window.location.href = mailtoLink;
-    };
-
-
 
     // Apri il client email
-    const mailtoLink = `mailto:?subject=Dati Compressori&body=${encodeURIComponent(emailBody)}`;
     window.location.href = mailtoLink;
 };
