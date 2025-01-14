@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Inventory Interface</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Inventory Interface</h1>
+
+    <div id="compressors-block" class="block">
+        <h2>COMPRESSORI</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Quantity</th>
+                    <th>Code</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody id="compressors-table-body">
+                <!-- Rows will be generated dynamically -->
+            </tbody>
+        </table>
+    </div>
+
+    <button id="export-btn">Export to CSV</button>
+
+    <script src="script.js"></script>
+</body>
+</html>
