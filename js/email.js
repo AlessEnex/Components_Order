@@ -1,8 +1,8 @@
 export const openOutlookWithEmail = (subject) => {
     const rows = Array.from(document.querySelectorAll("#table-body tr"));
     let emailBody = "Dati compressori:\n\n";
-    emailBody += "Fornitore       | Quantità | Codice   | Descrizione\n";
-    emailBody += "---------------------------------------------------\n";
+    emailBody += "Fornitore       | Quantità | Codice     | Descrizione\n";
+    emailBody += "-----------------------------------------------------\n";
 
     rows.forEach((row) => {
         const supplier = row.querySelector("select").value.padEnd(15, " ");
@@ -15,9 +15,6 @@ export const openOutlookWithEmail = (subject) => {
         }
     });
 
-    // Costruisci il link mailto
     const mailtoLink = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
-
-    // Apri il client email
     window.location.href = mailtoLink;
 };
