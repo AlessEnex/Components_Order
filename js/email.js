@@ -15,6 +15,9 @@ export const openOutlookWithEmail = (subject) => {
         }
     });
 
+    // Costruisci il link mailto
     const mailtoLink = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
+
+    // Apri il client email
     window.location.href = mailtoLink;
 };
