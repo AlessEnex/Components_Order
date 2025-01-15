@@ -1,5 +1,4 @@
 export const createRow = (data, suppliers) => {
-    console.log("Creazione di una nuova riga...");
     const tableBody = document.getElementById("table-body");
     const row = document.createElement("tr");
 
@@ -49,7 +48,20 @@ export const createRow = (data, suppliers) => {
     tableBody.appendChild(row);
 };
 
-// Filtra suggerimenti basati sull'input
+// Aggiorna la descrizione in base al codice inserito
+const updateDescription = (row, data) => {
+    const codeInput = row.querySelector("input[type='text']");
+    const descInput = row.querySelector("input[type='text'] + input");
+    const codeValue = codeInput.value.trim();
+
+    if (data[codeValue]) {
+        descInput.value = data[codeValue];
+    } else {
+        descInput.value = "Codice non valido";
+    }
+};
+
+// Filtra suggerimenti basati sull'input della descrizione
 const filterSuggestions = (input, data, codeInput) => {
     const query = input.value.toLowerCase();
     const suggestionBox = input.nextElementSibling;
