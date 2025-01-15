@@ -20,6 +20,7 @@ export const createRow = (data, suppliers) => {
     const qtyInput = document.createElement("input");
     qtyInput.type = "number";
     qtyInput.placeholder = "Quantità";
+    qtyInput.addEventListener("input", () => handleQuantityInput(row, data, suppliers)); // Aggiunto evento input
     qtyCell.appendChild(qtyInput);
     row.appendChild(qtyCell);
 
@@ -88,4 +89,16 @@ const filterSuggestions = (input, data, codeInput) => {
             suggestionBox.appendChild(suggestionItem);
         }
     });
+};
+
+// Aggiunge una nuova riga se la quantità > 0
+const handleQuantityInput = (row, data, suppliers) => {
+    const qtyInput = row.querySelector("input[type='number']").value;
+    const tableBody = document.getElementById("table-body");
+    const rows = Array.from(tableBody.querySelectorAll("tr"));
+
+    // Controlla se è l'ultima riga e se la quantità è > 0
+    if (qtyInput > 0 && rows.indexOf(row) === rows.length - 1) {
+        createRow(data, suppliers);
+    }
 };
