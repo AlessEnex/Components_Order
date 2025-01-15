@@ -188,4 +188,25 @@ option {
     border-radius: 4px; /* Angoli arrotondati */
 }
 
+.suggestion-box {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border: 1px solid #ccc;
+    max-height: 150px;
+    overflow-y: auto;
+    background-color: #fff;
+    position: absolute;
+    z-index: 1000;
+}
+
+.suggestion-box li {
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.suggestion-box li:hover {
+    background-color: #f0f0f0;
+}
+
 
