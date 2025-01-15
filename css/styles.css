@@ -171,7 +171,8 @@ option {
     flex-direction: column; /* Disposizione verticale */
     gap: 10px; /* Spaziatura tra gli elementi */
     margin-bottom: 20px; /* Distanza dalla tabella sottostante */
-    margin-left: 20px; /* Distanza dalla tabella sottostante */
+    margin-left: 60px; /* Distanza dalla tabella sottostante */
+    margin-top: 60px; /* Distanza dalla tabella sottostante */
 }
 
 #commessa-info label {
