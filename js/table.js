@@ -1,3 +1,16 @@
+// Aggiorna la descrizione in base al codice inserito
+export const updateDescription = (row, data) => {
+    const codeInput = row.querySelector("input[type='text']").value.trim();
+    const descInput = row.querySelector("input[type='text'] + input");
+
+    if (data[codeInput]) {
+        descInput.value = data[codeInput];
+    } else {
+        descInput.value = "Codice non valido";
+    }
+};
+
+// Funzione per creare una nuova riga
 export const createRow = (data, suppliers) => {
     const tableBody = document.getElementById("table-body");
     const row = document.createElement("tr");
@@ -46,40 +59,4 @@ export const createRow = (data, suppliers) => {
     row.appendChild(descCell);
 
     tableBody.appendChild(row);
-};
-
-// Aggiorna la descrizione in base al codice inserito
-const updateDescription = (row, data) => {
-    const codeInput = row.querySelector("input[type='text']");
-    const descInput = row.querySelector("input[type='text'] + input");
-    const codeValue = codeInput.value.trim();
-
-    if (data[codeValue]) {
-        descInput.value = data[codeValue];
-    } else {
-        descInput.value = "Codice non valido";
-    }
-};
-
-// Filtra suggerimenti basati sull'input della descrizione
-const filterSuggestions = (input, data, codeInput) => {
-    const query = input.value.toLowerCase();
-    const suggestionBox = input.nextElementSibling;
-
-    // Svuota i suggerimenti precedenti
-    suggestionBox.innerHTML = "";
-
-    // Mostra le corrispondenze
-    Object.entries(data).forEach(([code, description]) => {
-        if (description.toLowerCase().includes(query)) {
-            const suggestionItem = document.createElement("li");
-            suggestionItem.textContent = description;
-            suggestionItem.addEventListener("click", () => {
-                input.value = description;
-                codeInput.value = code;
-                suggestionBox.innerHTML = "";
-            });
-            suggestionBox.appendChild(suggestionItem);
-        }
-    });
 };
