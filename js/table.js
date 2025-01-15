@@ -54,7 +54,7 @@ export const updateDescription = (row, data) => {
     if (data[codeInput]) {
         descSpan.textContent = data[codeInput];
     } else {
-        descSpan.textContent = "Codice non valido";
+        descSpan.textContent = "Codice non trovato";
     }
 };
 
