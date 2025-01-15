@@ -1,5 +1,6 @@
 // Funzione per creare una nuova riga
 export const createRow = (data, suppliers) => {
+    console.log("Creazione di una nuova riga...");
     const tableBody = document.getElementById("table-body");
     const row = document.createElement("tr");
 
@@ -20,7 +21,10 @@ export const createRow = (data, suppliers) => {
     const qtyInput = document.createElement("input");
     qtyInput.type = "number";
     qtyInput.placeholder = "Quantità";
-    qtyInput.addEventListener("input", () => handleQuantityInput(row, data, suppliers)); // Aggiunto evento input
+    qtyInput.addEventListener("input", () => {
+        console.log("Evento input su quantità rilevato");
+        handleQuantityInput(row, data, suppliers);
+    }); // Evento di input per aggiungere una riga
     qtyCell.appendChild(qtyInput);
     row.appendChild(qtyCell);
 
@@ -49,12 +53,30 @@ export const createRow = (data, suppliers) => {
     row.appendChild(descCell);
 
     tableBody.appendChild(row);
+    console.log("Riga aggiunta:", row);
+};
+
+// Funzione per aggiungere una nuova riga se la quantità > 0
+const handleQuantityInput = (row, data, suppliers) => {
+    const qtyInput = row.querySelector("input[type='number']").value;
+    const tableBody = document.getElementById("table-body");
+    const rows = Array.from(tableBody.querySelectorAll("tr"));
+
+    console.log(`Quantità inserita: ${qtyInput}, Indice riga: ${rows.indexOf(row)}, Ultima riga: ${rows.length - 1}`);
+
+    // Controlla se è l'ultima riga e se la quantità è > 0
+    if (qtyInput > 0 && rows.indexOf(row) === rows.length - 1) {
+        console.log("Aggiungo una nuova riga...");
+        createRow(data, suppliers);
+    } else {
+        console.log("Non aggiungo una nuova riga");
+    }
 };
 
 // Aggiorna la descrizione in base al codice inserito
 export const updateDescription = (row, data) => {
     const codeInput = row.querySelector("input[type='text']").value.trim();
-    const descInput = row.querySelector(".description-input"); // Usa la classe
+    const descInput = row.querySelector(".description-input");
 
     if (!descInput) {
         console.error("Elemento descInput non trovato");
@@ -89,16 +111,4 @@ const filterSuggestions = (input, data, codeInput) => {
             suggestionBox.appendChild(suggestionItem);
         }
     });
-};
-
-// Aggiunge una nuova riga se la quantità > 0
-const handleQuantityInput = (row, data, suppliers) => {
-    const qtyInput = row.querySelector("input[type='number']").value;
-    const tableBody = document.getElementById("table-body");
-    const rows = Array.from(tableBody.querySelectorAll("tr"));
-
-    // Controlla se è l'ultima riga e se la quantità è > 0
-    if (qtyInput > 0 && rows.indexOf(row) === rows.length - 1) {
-        createRow(data, suppliers);
-    }
 };
