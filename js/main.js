@@ -1,6 +1,8 @@
-import { createRow } from "./table.js";
+
 import { exportToCSV } from "./csv.js";
 import { openOutlookWithEmail } from "./email.js";
+import { createRow, updateDescription } from "./table.js";
+
 
 const JSON_URL = "data.json";
 const SUPPLIERS_URL = "suppliers.json";
