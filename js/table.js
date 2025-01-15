@@ -1,11 +1,9 @@
 export const createRow = (data, suppliers) => {
     console.log("Creazione di una nuova riga...");
     const tableBody = document.getElementById("table-body");
-    console.log("Tabella trovata:", tableBody);
-
     const row = document.createElement("tr");
-    // Aggiunta di log per ciascuna cella
-    console.log("Aggiunta cella fornitore...");
+
+    // Fornitore
     const supplierCell = document.createElement("td");
     const supplierSelect = document.createElement("select");
     suppliers.forEach((supplier) => {
@@ -17,16 +15,15 @@ export const createRow = (data, suppliers) => {
     supplierCell.appendChild(supplierSelect);
     row.appendChild(supplierCell);
 
-    console.log("Aggiunta cella quantità...");
+    // Quantità
     const qtyCell = document.createElement("td");
     const qtyInput = document.createElement("input");
     qtyInput.type = "number";
     qtyInput.placeholder = "Quantità";
-    qtyInput.addEventListener("input", () => handleQuantityInput(row, data, suppliers));
     qtyCell.appendChild(qtyInput);
     row.appendChild(qtyCell);
 
-    console.log("Aggiunta cella codice...");
+    // Codice
     const codeCell = document.createElement("td");
     const codeInput = document.createElement("input");
     codeInput.type = "text";
@@ -35,35 +32,42 @@ export const createRow = (data, suppliers) => {
     codeCell.appendChild(codeInput);
     row.appendChild(codeCell);
 
-    console.log("Aggiunta cella descrizione...");
+    // Descrizione
     const descCell = document.createElement("td");
-    const descSpan = document.createElement("span");
-    descSpan.textContent = "Inserisci un codice";
-    descCell.appendChild(descSpan);
+    const descInput = document.createElement("input");
+    descInput.type = "text";
+    descInput.placeholder = "Descrizione";
+    descInput.addEventListener("input", () => filterSuggestions(descInput, data, codeInput));
+    descCell.appendChild(descInput);
+
+    const suggestionBox = document.createElement("ul");
+    suggestionBox.className = "suggestion-box";
+    descCell.appendChild(suggestionBox);
+
     row.appendChild(descCell);
 
     tableBody.appendChild(row);
-    console.log("Riga aggiunta:", row);
 };
 
+// Filtra suggerimenti basati sull'input
+const filterSuggestions = (input, data, codeInput) => {
+    const query = input.value.toLowerCase();
+    const suggestionBox = input.nextElementSibling;
 
-export const updateDescription = (row, data) => {
-    const codeInput = row.querySelector("input[type='text']").value.trim();
-    const descSpan = row.querySelector("span");
+    // Svuota i suggerimenti precedenti
+    suggestionBox.innerHTML = "";
 
-    if (data[codeInput]) {
-        descSpan.textContent = data[codeInput];
-    } else {
-        descSpan.textContent = "Codice non trovato";
-    }
-};
-
-const handleQuantityInput = (row, data, suppliers) => {
-    const qtyInput = row.querySelector("input[type='number']").value;
-    const tableBody = document.getElementById("table-body");
-    const rows = Array.from(tableBody.querySelectorAll("tr"));
-
-    if (qtyInput > 0 && rows.indexOf(row) === rows.length - 1) {
-        createRow(data, suppliers);
-    }
+    // Mostra le corrispondenze
+    Object.entries(data).forEach(([code, description]) => {
+        if (description.toLowerCase().includes(query)) {
+            const suggestionItem = document.createElement("li");
+            suggestionItem.textContent = description;
+            suggestionItem.addEventListener("click", () => {
+                input.value = description;
+                codeInput.value = code;
+                suggestionBox.innerHTML = "";
+            });
+            suggestionBox.appendChild(suggestionItem);
+        }
+    });
 };
