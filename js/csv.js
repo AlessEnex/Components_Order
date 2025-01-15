@@ -8,8 +8,8 @@ export const exportToCSV = () => {
     // Raccolta dati dalla tabella
     rows.forEach((row, index) => {
         const qty = row.querySelector("input[type='number']").value;
-        const code = row.querySelector("input[type='text']").value.trim();
-        const desc = row.querySelector("span").textContent;
+        const code = row.querySelector("input[placeholder='Codice']").value.trim();
+        const desc = row.querySelector("input[placeholder='Descrizione']").value;
 
         if (qty > 0) {
             // Formattazione delle righe secondo il formato richiesto
@@ -27,5 +27,4 @@ export const exportToCSV = () => {
     a.click();
 
     console.log("Funzione exportToCSV chiamata!");
-    
 };
